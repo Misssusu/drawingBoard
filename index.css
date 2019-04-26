@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#canvas {
+    display: block;
+    background: blue;
+}
+#actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+#brush {
+    display: none;
+}
+.actions.isBrush > #eraser {
+    display: none;
+}
+.actions.isBrush > #brush {
+    display: inline-block;
+}
