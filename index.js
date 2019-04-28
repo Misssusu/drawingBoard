@@ -12,6 +12,13 @@ firstPoint = {
 
 autoSetCanvasSize();
 listenToMouse();
+if('ontouchstart' in document) {
+    //mobile上
+    listenToTouch();
+} else {
+    //PC上
+    listenToMouse();
+}
 
 eraser.onclick = function() {
     eraserEnabled = !eraserEnabled;
@@ -53,11 +60,11 @@ function setCanvasSize() {
     canvas.width = pageWidth;
     canvas.height = pageHeight;
 }
-function listenToMouse() {
-    canvas.onmousedown = function(evt) {
+function listenToTouch() {
+    canvas.ontouchstart = function(evt) {
         using = true;
-        var x = evt.clientX;
-        var y = evt.clientY;
+        var x = evt.touches[0].clientX;
+        var y = evt.touches[0].clientY;
         if(eraserEnabled) {
             useEraser(x, y);
         }else {
@@ -68,9 +75,9 @@ function listenToMouse() {
             drawCircle(x, y, 1);
         }
     }
-    canvas.onmousemove = function(evt) {
-        var x = evt.clientX;
-        var y = evt.clientY;
+    canvas.ontouchmove = function(evt) {
+        var x = evt.touches[0].clientX;
+        var y = evt.touches[0].clientY;
         if(using) {
             if(eraserEnabled) {
                 useEraser(x, y);
@@ -85,7 +92,43 @@ function listenToMouse() {
             }
         }
     }
-    canvas.onmouseup = function(evt) {
+    canvas.ontouchend = function(evt) {
         using = false;
     }
+}
+function listenToMouse() {
+        canvas.onmousedown = function(evt) {
+            using = true;
+            var x = evt.clientX;
+            var y = evt.clientY;
+            if(eraserEnabled) {
+                useEraser(x, y);
+            }else {
+                firstPoint = {
+                    "x" : x,
+                    "y" : y
+                }
+                drawCircle(x, y, 1);
+            }
+        }
+        canvas.onmousemove = function(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            if(using) {
+                if(eraserEnabled) {
+                    useEraser(x, y);
+                }else {
+                    var newPoint = {
+                        "x" : x,
+                        "y" : y
+                    }
+                    drawCircle(x, y, 1);
+                    drawLine(firstPoint.x,firstPoint.y,newPoint.x,newPoint.y);
+                    firstPoint = newPoint;
+                }
+            }
+        }
+        canvas.onmouseup = function(evt) {
+            using = false;
+        }
 }
