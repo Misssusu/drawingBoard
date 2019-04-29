@@ -16,11 +16,15 @@ ul,li {
  }
 #canvas {
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 #actions {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     padding: 20px;
     width: 100%;
     box-sizing: border-box
@@ -37,8 +41,11 @@ ul,li {
 #actions #clear{
     font-size: 1.7em;
 }
-#actions #eraser,#save{
+#actions #save{
     font-size: 2em;
+}
+#actions #eraser{
+    font-size: 2.2em;
 }
 #actions svg {
     transition: all 0.3s;
@@ -52,6 +59,7 @@ ul,li {
     position: fixed;
     left: 0;
     top: 35px;
+    z-index: 1;
 }
 ul {
     margin-top: 30px;

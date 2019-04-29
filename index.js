@@ -27,16 +27,40 @@ if('ontouchstart' in document) {
 }
 
 eraser.onclick = function() {
-    eraserEnabled = !eraserEnabled;
+    eraserEnabled = true;
     actions.className = "actions isBrush";
     eraser.classList.add('active');
     brush.classList.remove('active');
     clear.classList.remove('active');
+    save.classList.remove('active');
 }
 brush.onclick = function() {
     eraserEnabled = false;
     actions.className = "actions";
     brush.classList.add('active');
+    eraser.classList.remove('active');
+    clear.classList.remove('active');
+    save.classList.remove('active');
+}
+clear.onclick = function() {
+    eraserEnabled = true;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    clear.classList.add('active');
+    brush.classList.remove('active');
+    eraser.classList.remove('active');
+    save.classList.remove('active');
+}
+save.onclick = function() {
+    eraserEnabled = true;
+    var url = canvas.toDataURL("image/png");
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = "drawPicture";
+    a.target = "_blank";
+    a.click();
+    save.classList.add('active');
+    brush.classList.remove('active');
     eraser.classList.remove('active');
     clear.classList.remove('active');
 }
@@ -67,24 +91,6 @@ yellow.onclick = function() {
     red.classList.remove('active');
     blue.classList.remove('active');
     black.classList.remove('active');
-}
-clear.onclick = function() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    clear.classList.add('active');
-    brush.classList.remove('active');
-    eraser.classList.remove('active');
-}
-save.onclick = function() {
-    var url = canvas.toDataURL("image/png");
-    var a = document.createElement('a');
-    document.body.appendChild(a);
-    a.href = url;
-    a.download = "drawPicture";
-    a.click();
-    save.classList.add('active');
-    brush.classList.remove('active');
-    eraser.classList.remove('active');
-    clear.classList.remove('active');
 }
 function useEraser(x, y) {
     context.clearRect(x-5, y-5, 20, 20);
