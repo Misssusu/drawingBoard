@@ -2,7 +2,13 @@ var canvas = document.getElementById('canvas');
 var eraser = document.getElementById('eraser');
 var brush = document.getElementById('brush');
 var actions = document.getElementById('actions');
+var red = document.getElementById('red');
+var blue = document.getElementById('blue');
+var yellow = document.getElementById('yellow');
+var clear = document.getElementById('clear');
+var save = document.getElementById('save');
 var context = canvas.getContext('2d');
+var iptColor = context.strokeStyle;
 var using = false;
 var eraserEnabled = false;
 firstPoint = {
@@ -23,17 +29,69 @@ if('ontouchstart' in document) {
 eraser.onclick = function() {
     eraserEnabled = !eraserEnabled;
     actions.className = "actions isBrush";
+    eraser.classList.add('active');
+    brush.classList.remove('active');
+    clear.classList.remove('active');
 }
 brush.onclick = function() {
     eraserEnabled = false;
     actions.className = "actions";
+    brush.classList.add('active');
+    eraser.classList.remove('active');
+    clear.classList.remove('active');
+}
+black.onclick = function() {
+    context.strokeStyle = 'black';
+    black.classList.add('active');
+    red.classList.remove('active');
+    blue.classList.remove('active');
+    yellow.classList.remove('active');
+}
+red.onclick = function() {
+    context.strokeStyle = 'red';
+    red.classList.add('active');
+    blue.classList.remove('active');
+    yellow.classList.remove('active');
+    black.classList.remove('active');
+}
+blue.onclick = function() {
+    context.strokeStyle = 'blue';
+    blue.classList.add('active');
+    red.classList.remove('active');
+    yellow.classList.remove('active');
+    black.classList.remove('active');
+}
+yellow.onclick = function() {
+    context.strokeStyle = 'yellow';
+    yellow.classList.add('active');
+    red.classList.remove('active');
+    blue.classList.remove('active');
+    black.classList.remove('active');
+}
+clear.onclick = function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    clear.classList.add('active');
+    brush.classList.remove('active');
+    eraser.classList.remove('active');
+}
+save.onclick = function() {
+    var url = canvas.toDataURL("image/png");
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = "drawPicture";
+    a.click();
+    save.classList.add('active');
+    brush.classList.remove('active');
+    eraser.classList.remove('active');
+    clear.classList.remove('active');
 }
 function useEraser(x, y) {
-    context.clearRect(x-5, y-5, 10, 10);
+    context.clearRect(x-5, y-5, 20, 20);
 }
 function drawCircle(x,y,radius) {
     context.beginPath();
-    context.fillStyle = 'black';
+    // context.fillStyle = 'black';
     context.arc(x, y, radius, 0, Math.PI*2);
     context.fill();
 }
@@ -62,6 +120,8 @@ function setCanvasSize() {
 }
 function listenToTouch() {
     canvas.ontouchstart = function(evt) {
+        context.lineCap = "round";
+        context.lineJoin= "round";
         using = true;
         var x = evt.touches[0].clientX;
         var y = evt.touches[0].clientY;
@@ -72,7 +132,7 @@ function listenToTouch() {
                 "x" : x,
                 "y" : y
             }
-            drawCircle(x, y, 1);
+            // drawCircle(x, y, 1);
         }
     }
     canvas.ontouchmove = function(evt) {
@@ -86,7 +146,7 @@ function listenToTouch() {
                     "x" : x,
                     "y" : y
                 }
-                drawCircle(x, y, 1);
+                // drawCircle(x, y, 1);
                 drawLine(firstPoint.x,firstPoint.y,newPoint.x,newPoint.y);
                 firstPoint = newPoint;
             }
@@ -98,6 +158,8 @@ function listenToTouch() {
 }
 function listenToMouse() {
         canvas.onmousedown = function(evt) {
+            context.lineCap = "round";
+            context.lineJoin= "round";
             using = true;
             var x = evt.clientX;
             var y = evt.clientY;
@@ -108,7 +170,7 @@ function listenToMouse() {
                     "x" : x,
                     "y" : y
                 }
-                drawCircle(x, y, 1);
+                // drawCircle(x, y, 1);
             }
         }
         canvas.onmousemove = function(evt) {
@@ -122,7 +184,7 @@ function listenToMouse() {
                         "x" : x,
                         "y" : y
                     }
-                    drawCircle(x, y, 1);
+                    // drawCircle(x, y, 1);
                     drawLine(firstPoint.x,firstPoint.y,newPoint.x,newPoint.y);
                     firstPoint = newPoint;
                 }

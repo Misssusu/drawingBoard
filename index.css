@@ -2,21 +2,82 @@
     margin: 0;
     padding: 0;
 }
+body {
+    overflow: hidden;
+}
+ul,li {
+    list-style: none;
+}
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
 #canvas {
     display: block;
-    background: blue;
 }
 #actions {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box
 }
-#brush {
-    display: none;
+.svgBox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center
 }
-.actions.isBrush > #eraser {
-    display: none;
+
+#actions #brush{
+    font-size: 1.8em;
 }
-.actions.isBrush > #brush {
-    display: inline-block;
+#actions #clear{
+    font-size: 1.7em;
+}
+#actions #eraser,#save{
+    font-size: 2em;
+}
+#actions svg {
+    transition: all 0.3s;
+}
+#actions svg.active {
+    color: red;
+    transform: scale(1.2);
+}
+.colorBox {
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 35px;
+}
+ul {
+    margin-top: 30px;
+}
+ul > li {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #c0c0c0;
+    transition: all 0.3s;
+}
+ul > li:not(:first-child) {
+    margin-top: 13px;
+}
+ul > li.active {
+    transform: scale(1.2);
+}
+#black {
+    background: black;
+}
+#red {
+    background: red;
+}
+#blue {
+    background : blue;
+}
+#yellow {
+    background: yellow;
 }

@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
     <title>drawingBoard</title>
     <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
-    <canvas id="canvas" width=500 height=500></canvas>
-    <div class="actions" id = "actions">
-        <button id="eraser">橡皮擦</button>
-        <button id="brush">画笔</button>
+    <div class="actions" id="actions">
+        <div class="svgBox">
+            <svg class="icon active" id="brush">
+                <use xlink:href="#icon-pen1"></use>
+            </svg>
+            <svg class="icon" id="eraser">
+                <use xlink:href="#icon-Eraser-Tool"></use>
+            </svg>
+            <svg class="icon" id="clear">
+                <use xlink:href="#icon-shanchu"></use>
+            </svg>
+            <svg class="icon" id="save">
+                <use xlink:href="#icon-xiazai"></use>
+            </svg>
+        </div>
     </div>
+    <div class="colorBox">
+        <ul>
+            <li id="black" class="active"></li>
+            <li id="red"></li>
+            <li id="blue"></li>
+            <li id="yellow"></li>
+        </ul>
+    </div>
+    <canvas id="canvas" width=500 height=500></canvas>
 </body>
 <script src="./index.js"></script>
+<script src="//at.alicdn.com/t/font_1168086_c6tkyqh9jfq.js"></script>
+
 </html>
